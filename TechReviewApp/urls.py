@@ -8,4 +8,6 @@ urlpatterns=[
     path('productDetail/<int:id>', views.productDetail, name='productdetail'),
     path('newProduct/', views.newProduct, name='newproduct'),
     path('newReview/', views.newReview, name='newreview'),
+    path('loginmessage/', views.loginMessage, name='loginmessage'),
+    path('logoutmessage/', views.logoutMessage, name='logoutmessage'),
 ]
