@@ -122,4 +122,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+# these are in caps because they are predefined, built in constants in django
 STATIC_URL = '/static/'
+LOGIN_REDIRECT_URL = 'loginmessage'
+LOGOUT_REDIRECT_URL = 'logoutmessage'
