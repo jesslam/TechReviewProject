@@ -2,6 +2,8 @@ from django.test import TestCase
 from django.urls import reverse
 from .models import TechType, Product, Review
 from django.contrib.auth.models import User
+import datetime
+from .forms import ProductForm
 
 # Create your tests here.
 class TechTypeTest(TestCase): 
@@ -43,3 +45,32 @@ class GetProductsTest(TestCase):
     def test_product_detail_success(self):
         response=self.client.get(reverse('productdetail', args=(self.prod.id,)))
         self.assertEqual(response.status_code, 200)
+
+class ProductFormTest(TestCase):
+    def setUp(self):
+        self.user=User.objects.create(username='user1', password='P@ssw0rd1')
+        self.type=TechType.objects.create(techtypename='type1')
+
+    def test_productForm(self):
+        data={
+            'productname' : 'product1',
+            'techtype' : self.type,
+            'user' : self.user,
+            'productprice' : 200.00,
+            'productentrydate' : datetime.date(2019,5,28),
+
+        }
+        form=ProductForm(data=data)
+        self.assertTrue(form.is_valid)
+
+    def test_productFormInvalid(self):
+        data={
+            'productname' : 'product1',
+            'techtype' : self.type,
+            'user' : self.user,
+            'productprice' : '',
+            'productentrydate' : datetime.date(2019,5,28),
+
+        }
+        form=ProductForm(data=data)
+        self.assertFalse(form.is_valid())
